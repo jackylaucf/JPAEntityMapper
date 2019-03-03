@@ -11,9 +11,9 @@ public class ApplicationConfig {
     private static final String DB_CONNECTION_URL = "db.connection.url";
     private static final String DB_CONNECTION_USER = "db.connection.user";
     private static final String DB_CONNECTION_PASSWORD = "db.connection.password";
-    private static final String BEAN_ENTITY = "bean.entity";
-    private static final String BEAN_POJO = "bean.pojo";
-    private static final String BEAN_STRING_ONLY_POJO = "bean.string-only-pojo";
+    private static final String BEAN_ENTITY = "bean.package.entity";
+    private static final String BEAN_POJO = "bean.package.pojo";
+    private static final String BEAN_STRING_ONLY_POJO = "bean.package.string-only-pojo";
     private static final String BEAN_DB_MAP = "bean.db.map";
     private static final String OUTPUT_ROOT = "output.root";
 
@@ -42,7 +42,7 @@ public class ApplicationConfig {
         this.dbConnectionUrl = properties.getProperty(DB_CONNECTION_URL);
         this.dbConnectionUser = properties.getProperty(DB_CONNECTION_USER);
         this.dbConnectionPassword = properties.getProperty(DB_CONNECTION_PASSWORD);
-        if(dbConnectionUrl==null || dbConnectionUser==null || dbConnectionPassword==null){
+        if(dbConnectionUrl==null || dbConnectionUser==null){
             throw new NoSuchElementException("Missing Database Connection Configuration");
         }
 

@@ -17,7 +17,7 @@ public class ProcessManager {
     private int timeout;
     private ApplicationConfig config;
     private BasicDataSource dataSource;
-
+    
     public ProcessManager(ApplicationConfig config){
         this.config = config;
         this.timeout = config.getDatabaseToBeanMap().size() * config.getBeanConfig().size() * 20;

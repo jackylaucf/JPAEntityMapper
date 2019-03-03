@@ -36,7 +36,7 @@ public class MapperRunnable implements Runnable{
                 columnTypes.add(meta.getInt("DATA_TYPE"));
             }
             for(BeanConfig beanConfig : config.getBeanConfig()){
-                String outputPath = config.getDatabaseToBeanMap().get(beanConfig.getPackageName());
+                String outputPath = config.getAbsoluteOutputPaths().get(beanConfig.getPackageName());
                 beanConfig.getType().getBeanWriter().write(outputPath, beanName, columnNames, columnTypes, beanConfig);
             }
         } catch (SQLException | IOException e) {

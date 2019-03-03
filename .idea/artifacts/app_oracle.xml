@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="app">
-    <output-path>$PROJECT_DIR$/out/artifacts/app</output-path>
+  <artifact type="jar" name="app-oracle">
+    <output-path>$PROJECT_DIR$/out/artifacts/app_oracle</output-path>
     <root id="archive" name="plainolddumbjavaobject.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
