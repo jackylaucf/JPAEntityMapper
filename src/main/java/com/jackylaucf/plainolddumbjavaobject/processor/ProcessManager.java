@@ -1,6 +1,7 @@
 package com.jackylaucf.plainolddumbjavaobject.processor;
 
 import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
+import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
 import com.jackylaucf.plainolddumbjavaobject.persistence.DatabaseConnectionPool;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -15,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 public class ProcessManager {
 
     private int timeout;
-    private ApplicationConfig config;
+    private ApplicationConfigParser config;
     private BasicDataSource dataSource;
     
-    public ProcessManager(ApplicationConfig config){
+    public ProcessManager(ApplicationConfigParser parser){
         this.config = config;
         this.timeout = config.getDatabaseToBeanMap().size() * config.getBeanConfig().size() * 20;
         dataSource = DatabaseConnectionPool.getDataSource(config.getDbConnectionUrl(), config.getDbConnectionUser(), config.getDbConnectionPassword());

@@ -28,6 +28,7 @@ public class MapperRunnable implements Runnable{
     @Override
     public void run() {
         try {
+            System.out.println("Processing table " + tableName);
             List<String> columnNames = new ArrayList<>();
             List<Integer> columnTypes = new ArrayList<>();
             ResultSet meta = connection.getMetaData().getColumns(null, null, tableName, "%");

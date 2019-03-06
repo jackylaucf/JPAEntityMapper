@@ -1,6 +1,6 @@
 package com.jackylaucf.plainolddumbjavaobject;
 
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
+import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
 import com.jackylaucf.plainolddumbjavaobject.processor.ProcessManager;
 
 public class Application {
@@ -9,7 +9,7 @@ public class Application {
             throw new RuntimeException("Missing argument - File path of the configuration properties");
         }else{
             try {
-                ProcessManager processManager = new ProcessManager(new ApplicationConfig(args[0]));
+                ProcessManager processManager = new ProcessManager(new ApplicationConfigParser(args[0]));
                 processManager.start();
                 System.out.println("Service Completed");
             }catch(Exception e){

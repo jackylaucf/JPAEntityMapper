@@ -2,6 +2,7 @@ package com.jackylaucf.plainolddumbjavaobject.processor.writer;
 
 
 import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
+import com.jackylaucf.plainolddumbjavaobject.config.DataType;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -34,12 +35,18 @@ public abstract class Writer {
         }
     }
 
-    protected void writeTypeImportStatements(List<Integer> columnTypes){
+    void writeTypeImportStatements(List<Integer> columnTypes) throws IOException{
         Set<Integer> databaseColumnType = new HashSet<>(columnTypes);
-        for(Iterator<Integer> it = databaseColumnType.iterator(); it.hasNext(); ){
-            int type = it.next();
-
+        for (Integer integer : databaseColumnType) {
+            String dependency = DataType.getDataType(integer).getDependency();
+            if (dependency != null) {
+                bufferedWriter.write("import ");
+                bufferedWriter.write(dependency);
+                writeNewLines(1);
+            }
         }
+        writeNewLines(1);
+        bufferedWriter.flush();
     }
 
     protected List<String> getTypedGetterSetter(){
