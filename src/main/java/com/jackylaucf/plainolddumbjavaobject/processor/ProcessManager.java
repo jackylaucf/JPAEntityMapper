@@ -1,7 +1,7 @@
 package com.jackylaucf.plainolddumbjavaobject.processor;
 
 import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
+import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
 import com.jackylaucf.plainolddumbjavaobject.persistence.DatabaseConnectionPool;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -16,13 +16,13 @@ import java.util.concurrent.TimeUnit;
 public class ProcessManager {
 
     private int timeout;
-    private ApplicationConfigParser config;
+    private ApplicationConfig config;
     private BasicDataSource dataSource;
     
-    public ProcessManager(ApplicationConfigParser parser){
+    public ProcessManager(ApplicationConfig config){
         this.config = config;
         this.timeout = config.getDatabaseToBeanMap().size() * config.getBeanConfig().size() * 20;
-        dataSource = DatabaseConnectionPool.getDataSource(config.getDbConnectionUrl(), config.getDbConnectionUser(), config.getDbConnectionPassword());
+        this.dataSource = DatabaseConnectionPool.getDataSource(config.getDbConnectionUrl(), config.getDbConnectionUser(), config.getDbConnectionPassword());
     }
 
     public void start() throws IOException, SQLException{
@@ -55,10 +55,10 @@ public class ProcessManager {
     }
 
     private boolean prepareDirectory(){
-        for(Map.Entry<String, String> outputPath : config.getAbsoluteOutputPaths().entrySet()){
-            File directory = new File(outputPath.getValue());
+        for(BeanConfig beanConfig : config.getBeanConfig()){
+            File directory = new File(beanConfig.getAbsolutePath());
             if(!directory.exists()){
-                if(!directory.mkdir()){
+                if(!directory.mkdirs()){
                     return false;
                 }
             }

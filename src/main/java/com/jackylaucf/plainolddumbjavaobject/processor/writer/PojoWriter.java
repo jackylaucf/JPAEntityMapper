@@ -18,7 +18,7 @@ public class PojoWriter extends Writer{
 
     @Override
     public void write(String outputPath, String beanName, List<String> columnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
-        initBufferedWriter(outputPath, beanName, beanConfig.getNameSuffix());
+        initBufferedWriter(outputPath, beanName, beanConfig.getNamePrefix(), beanConfig.getNameSuffix());
         if(bufferedWriter!=null){
             writePackageStatement(beanConfig.getPackageName());
             writeTypeImportStatements(columnTypes);

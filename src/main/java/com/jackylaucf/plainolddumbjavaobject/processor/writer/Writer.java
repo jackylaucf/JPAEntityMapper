@@ -17,8 +17,8 @@ public abstract class Writer {
 
     public abstract void write(String outputPath, String beanName, List<String> columnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException;
 
-    void initBufferedWriter(String outputPath, String beanName, String suffix) throws IOException {
-        String beanFullName = beanName + suffix + ".java";
+    void initBufferedWriter(String outputPath, String beanName, String prefix, String suffix) throws IOException {
+        String beanFullName = prefix + beanName + suffix + ".java";
         File file = new File(outputPath, beanFullName);
         if(!file.createNewFile()){
             System.out.println(beanFullName + " has already existed. Overwriting the file...");
@@ -30,6 +30,7 @@ public abstract class Writer {
         if(bufferedWriter!=null){
             bufferedWriter.write("package ");
             bufferedWriter.write(packageName);
+            bufferedWriter.write(";");
             writeNewLines(2);
             bufferedWriter.flush();
         }
@@ -42,6 +43,7 @@ public abstract class Writer {
             if (dependency != null) {
                 bufferedWriter.write("import ");
                 bufferedWriter.write(dependency);
+                bufferedWriter.write(";");
                 writeNewLines(1);
             }
         }
@@ -51,7 +53,7 @@ public abstract class Writer {
 
     protected List<String> getTypedGetterSetter(){
         List<String> getterSetter = new ArrayList<>();
-
+        
         return getterSetter;
     }
 

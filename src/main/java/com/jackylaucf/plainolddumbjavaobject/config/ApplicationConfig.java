@@ -1,16 +1,19 @@
 package com.jackylaucf.plainolddumbjavaobject.config;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public final class ApplicationConfig {
 
     static final String DB_CONNECTION_URL = "db.connection.url";
     static final String DB_CONNECTION_USER = "db.connection.user";
     static final String DB_CONNECTION_PASSWORD = "db.connection.password";
-    static final String BEAN_PREFIX = "bean.prefix";
-    static final String BEAN_SUFFIX = "bean.suffix";
-    static final String BEAN_PACKAGE = "bean.package";
-    static final String BEAN_DB_MAP = "bean.db.map";
+    static final String BEAN_PREFIX = "bean.prefix.";
+    static final String BEAN_SUFFIX = "bean.suffix.";
+    static final String BEAN_PACKAGE = "bean.package.";
+    static final String BEAN_DB_MAP = "bean.db.map.";
     static final String OUTPUT_ROOT = "output.root";
 
     private String outputRoot;
@@ -20,7 +23,7 @@ public final class ApplicationConfig {
     private List<BeanConfig> beanConfig;
     private Map<String, String> databaseToBeanMap;
 
-    public ApplicationConfig(){
+    ApplicationConfig(){
         this.beanConfig = new ArrayList<>();
         this.databaseToBeanMap = new HashMap<>();
     }
@@ -29,7 +32,7 @@ public final class ApplicationConfig {
         return outputRoot;
     }
 
-    public void setOutputRoot(String outputRoot) {
+    void setOutputRoot(String outputRoot) {
         this.outputRoot = outputRoot;
     }
 
@@ -37,7 +40,7 @@ public final class ApplicationConfig {
         return dbConnectionUrl;
     }
 
-    public void setDbConnectionUrl(String dbConnectionUrl) {
+    void setDbConnectionUrl(String dbConnectionUrl) {
         this.dbConnectionUrl = dbConnectionUrl;
     }
 
@@ -45,7 +48,7 @@ public final class ApplicationConfig {
         return dbConnectionUser;
     }
 
-    public void setDbConnectionUser(String dbConnectionUser) {
+    void setDbConnectionUser(String dbConnectionUser) {
         this.dbConnectionUser = dbConnectionUser;
     }
 
@@ -53,7 +56,7 @@ public final class ApplicationConfig {
         return dbConnectionPassword;
     }
 
-    public void setDbConnectionPassword(String dbConnectionPassword) {
+    void setDbConnectionPassword(String dbConnectionPassword) {
         this.dbConnectionPassword = dbConnectionPassword;
     }
 
@@ -61,7 +64,7 @@ public final class ApplicationConfig {
         return beanConfig;
     }
 
-    public void setBeanConfig(List<BeanConfig> beanConfig) {
+    void setBeanConfig(List<BeanConfig> beanConfig) {
         this.beanConfig = beanConfig;
     }
 
@@ -69,7 +72,8 @@ public final class ApplicationConfig {
         return databaseToBeanMap;
     }
 
-    public void setDatabaseToBeanMap(Map<String, String> databaseToBeanMap) {
+    void setDatabaseToBeanMap(Map<String, String> databaseToBeanMap) {
         this.databaseToBeanMap = databaseToBeanMap;
     }
+
 }

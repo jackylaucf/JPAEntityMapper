@@ -18,7 +18,7 @@ public class MapperRunnable implements Runnable{
     private String beanName;
     private ApplicationConfig config;
 
-    public MapperRunnable(Connection connection, String tableName, String beanName, ApplicationConfig config){
+    MapperRunnable(Connection connection, String tableName, String beanName, ApplicationConfig config){
         this.connection = connection;
         this.tableName = tableName;
         this.beanName = beanName;
@@ -29,15 +29,15 @@ public class MapperRunnable implements Runnable{
     public void run() {
         try {
             System.out.println("Processing table " + tableName);
-            List<String> columnNames = new ArrayList<>();
-            List<Integer> columnTypes = new ArrayList<>();
+            final List<String> columnNames = new ArrayList<>();
+            final List<Integer> columnTypes = new ArrayList<>();
             ResultSet meta = connection.getMetaData().getColumns(null, null, tableName, "%");
             while(meta.next()){
                 columnNames.add(meta.getString("COLUMN_NAME"));
                 columnTypes.add(meta.getInt("DATA_TYPE"));
             }
             for(BeanConfig beanConfig : config.getBeanConfig()){
-                String outputPath = config.getAbsoluteOutputPaths().get(beanConfig.getPackageName());
+                final String outputPath = beanConfig.getAbsolutePath();
                 beanConfig.getType().getBeanWriter().write(outputPath, beanName, columnNames, columnTypes, beanConfig);
             }
         } catch (SQLException | IOException e) {
