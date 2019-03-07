@@ -12,32 +12,32 @@ import static com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig.*;
 
 public class ApplicationConfigParser {
 
-    private final Properties properties;
-    private final ApplicationConfig config;
+    private static Properties properties;
+    private static ApplicationConfig config;
 
-    public ApplicationConfigParser(String path) throws IOException {
+    static{
+        properties = new Properties();
+        config = ApplicationConfig.getConfig();
+    }
+
+    public static void parse(String path) throws IOException{
         final File file = new File(path);
         if(!file.exists() || !file.isFile()){
             throw new FileNotFoundException();
         }
-        this.properties = new Properties();
-        this.config = new ApplicationConfig();
-        this.properties.load(new FileInputStream(file));
-    }
-
-    public ApplicationConfig parse(){
+        properties.load(new FileInputStream(file));
         setOutputRootConfig();
         setDatabaseConfig();
         setBeanConfig(getPackagePropertyKeys());
         setDatabaseBeanMapConfig();
-        return this.config;
+        config.setLoaded();
     }
 
-    private void setOutputRootConfig(){
+    private static void setOutputRootConfig(){
         config.setOutputRoot(properties.getProperty(OUTPUT_ROOT, System.getProperty("user.dir")));
     }
 
-    private void setDatabaseConfig(){
+    private static void setDatabaseConfig(){
         if(properties.getProperty(DB_CONNECTION_URL)==null || properties.getProperty(DB_CONNECTION_USER)==null){
             throw new NoSuchElementException("Missing Database Connection Configuration");
         }else{
@@ -47,7 +47,7 @@ public class ApplicationConfigParser {
         }
     }
 
-    private void setBeanConfig(Set<String> packagePropertyKeys){
+    private static void setBeanConfig(Set<String> packagePropertyKeys){
         final List<BeanConfig> beanConfigs = new ArrayList<>();
         for(String key : packagePropertyKeys){
             final String beanTypeName = getBeanTypeNameByPackageKey(key);
@@ -60,7 +60,7 @@ public class ApplicationConfigParser {
         config.setBeanConfig(beanConfigs);
     }
 
-    private void setDatabaseBeanMapConfig(){
+    private static void setDatabaseBeanMapConfig(){
         final Map<String, String> databaseBeanMap = new HashMap<>();
         final Set<String> propertiesNameSet = properties.stringPropertyNames();
         propertiesNameSet.removeIf(name -> !name.startsWith(BEAN_DB_MAP));
@@ -70,7 +70,7 @@ public class ApplicationConfigParser {
         config.setDatabaseToBeanMap(databaseBeanMap);
     }
 
-    private Set<String> getPackagePropertyKeys(){
+    private static Set<String> getPackagePropertyKeys(){
         final Set<String> propertiesNameSet = properties.stringPropertyNames();
         propertiesNameSet.removeIf(name -> !name.startsWith(BEAN_PACKAGE));
         if(propertiesNameSet.isEmpty()){
@@ -79,7 +79,7 @@ public class ApplicationConfigParser {
         return propertiesNameSet;
     }
 
-    private String getBeanTypeNameByPackageKey(String packagePropertyKey){
+    private static String getBeanTypeNameByPackageKey(String packagePropertyKey){
         final Pattern packagePattern = Pattern.compile(BEAN_PACKAGE + "(.+)\\.\\d+");
         final Matcher packagePatternMatcher = packagePattern.matcher(packagePropertyKey);
         if(packagePatternMatcher.matches()){
@@ -89,17 +89,17 @@ public class ApplicationConfigParser {
         }
     }
 
-    private String getPrefixByPackageKey(String packagePropertyKey){
+    private static String getPrefixByPackageKey(String packagePropertyKey){
         final String prefixPropertyKey = packagePropertyKey.replaceFirst(BEAN_PACKAGE, BEAN_PREFIX);
         return properties.getProperty(prefixPropertyKey, "");
     }
 
-    private String getSuffixByPackageKey(String packagePropertyKey){
+    private static String getSuffixByPackageKey(String packagePropertyKey){
         final String suffixPropertyKey = packagePropertyKey.replaceFirst(BEAN_PACKAGE, BEAN_SUFFIX);
         return properties.getProperty(suffixPropertyKey, "");
     }
 
-    private String getAbsolutePathByPackageKey(String packagePropertyKey){
+    private static String getAbsolutePathByPackageKey(String packagePropertyKey){
         final String rootPath = properties.getProperty(OUTPUT_ROOT, System.getProperty("user.dir"));
         final String childPath = properties.getProperty(packagePropertyKey).replace(".", "/");
         final File file = new File(rootPath, childPath);

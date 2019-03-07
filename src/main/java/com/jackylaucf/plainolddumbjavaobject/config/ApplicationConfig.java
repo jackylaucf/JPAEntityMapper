@@ -1,20 +1,20 @@
 package com.jackylaucf.plainolddumbjavaobject.config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class ApplicationConfig {
 
     static final String DB_CONNECTION_URL = "db.connection.url";
     static final String DB_CONNECTION_USER = "db.connection.user";
     static final String DB_CONNECTION_PASSWORD = "db.connection.password";
+    static final String BEAN_ID = "bean.id.";
     static final String BEAN_PREFIX = "bean.prefix.";
     static final String BEAN_SUFFIX = "bean.suffix.";
     static final String BEAN_PACKAGE = "bean.package.";
     static final String BEAN_DB_MAP = "bean.db.map.";
     static final String OUTPUT_ROOT = "output.root";
+
+    private static boolean isLoaded;
 
     private String outputRoot;
     private String dbConnectionUrl;
@@ -23,13 +23,28 @@ public final class ApplicationConfig {
     private List<BeanConfig> beanConfig;
     private Map<String, String> databaseToBeanMap;
 
-    ApplicationConfig(){
+    private static ApplicationConfig config;
+
+    static{
+        config = new ApplicationConfig();
+        isLoaded = false;
+    }
+
+    private ApplicationConfig(){
         this.beanConfig = new ArrayList<>();
         this.databaseToBeanMap = new HashMap<>();
     }
 
+    public static ApplicationConfig getConfig(){
+        return config;
+    }
+
     public String getOutputRoot() {
-        return outputRoot;
+        if(isLoaded){
+            return outputRoot;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setOutputRoot(String outputRoot) {
@@ -37,7 +52,11 @@ public final class ApplicationConfig {
     }
 
     public String getDbConnectionUrl() {
-        return dbConnectionUrl;
+        if(isLoaded){
+            return dbConnectionUrl;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setDbConnectionUrl(String dbConnectionUrl) {
@@ -45,7 +64,11 @@ public final class ApplicationConfig {
     }
 
     public String getDbConnectionUser() {
-        return dbConnectionUser;
+        if(isLoaded){
+            return dbConnectionUser;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setDbConnectionUser(String dbConnectionUser) {
@@ -53,7 +76,11 @@ public final class ApplicationConfig {
     }
 
     public String getDbConnectionPassword() {
-        return dbConnectionPassword;
+        if(isLoaded){
+            return dbConnectionPassword;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setDbConnectionPassword(String dbConnectionPassword) {
@@ -61,7 +88,11 @@ public final class ApplicationConfig {
     }
 
     public List<BeanConfig> getBeanConfig() {
-        return beanConfig;
+        if(isLoaded){
+            return beanConfig;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setBeanConfig(List<BeanConfig> beanConfig) {
@@ -69,11 +100,18 @@ public final class ApplicationConfig {
     }
 
     public Map<String, String> getDatabaseToBeanMap() {
-        return databaseToBeanMap;
+        if(isLoaded){
+            return databaseToBeanMap;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
     }
 
     void setDatabaseToBeanMap(Map<String, String> databaseToBeanMap) {
         this.databaseToBeanMap = databaseToBeanMap;
     }
 
+    void setLoaded(){
+        isLoaded = true;
+    }
 }

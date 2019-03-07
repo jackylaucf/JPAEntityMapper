@@ -15,13 +15,13 @@ public class MapperRunnable implements Runnable{
     private Connection connection;
     private String tableName;
     private String beanName;
-    private List<BeanConfig> beanConfigs;
+    private ApplicationConfig config;
 
-    MapperRunnable(Connection connection, String tableName, String beanName, List<BeanConfig> beanConfigs){
+    MapperRunnable(Connection connection, String tableName, String beanName){
         this.connection = connection;
         this.tableName = tableName;
         this.beanName = beanName;
-        this.beanConfigs = beanConfigs;
+        this.config = ApplicationConfig.getConfig();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MapperRunnable implements Runnable{
                 columnNames.add(meta.getString("COLUMN_NAME"));
                 columnTypes.add(meta.getInt("DATA_TYPE"));
             }
-            for(BeanConfig beanConfig : beanConfigs){
+            for(BeanConfig beanConfig : config.getBeanConfig()){
                 final String outputPath = beanConfig.getAbsolutePath();
                 beanConfig.getType().getBeanWriter().write(outputPath, tableName, beanName, columnNames, columnTypes, beanConfig);
             }

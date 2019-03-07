@@ -1,6 +1,7 @@
 package com.jackylaucf.plainolddumbjavaobject.processor;
 
 import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
+import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
 import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
 import com.jackylaucf.plainolddumbjavaobject.persistence.DatabaseConnectionPool;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -19,8 +20,9 @@ public class ProcessManager {
     private ApplicationConfig config;
     private BasicDataSource dataSource;
     
-    public ProcessManager(ApplicationConfig config){
-        this.config = config;
+    public ProcessManager(String configPath) throws IOException{
+        ApplicationConfigParser.parse(configPath);
+        this.config = ApplicationConfig.getConfig();
         this.timeout = config.getDatabaseToBeanMap().size() * config.getBeanConfig().size() * 20;
         this.dataSource = DatabaseConnectionPool.getDataSource(config.getDbConnectionUrl(), config.getDbConnectionUser(), config.getDbConnectionPassword());
     }
@@ -30,11 +32,10 @@ public class ProcessManager {
             ExecutorService executor = Executors.newFixedThreadPool(20);
             for(Map.Entry<String, String> entry : config.getDatabaseToBeanMap().entrySet()){
                 try {
-                    executor.submit(new MapperRunnable(dataSource.getConnection(), entry.getKey(), entry.getValue(), config.getBeanConfig()));
+                    executor.submit(new MapperRunnable(dataSource.getConnection(), entry.getKey(), entry.getValue()));
                 } catch (SQLException e) {
                     shutdownAndAwaitTermination(executor);
-                    throw e;
-                }
+                    throw e;                }
             }
             shutdownAndAwaitTermination(executor);
         }else{

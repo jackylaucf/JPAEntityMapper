@@ -9,8 +9,7 @@ public class Application {
             throw new RuntimeException("Missing argument - File path of the configuration properties");
         }else{
             try {
-                ApplicationConfigParser parser = new ApplicationConfigParser(args[0]);
-                ProcessManager processManager = new ProcessManager(parser.parse());
+                ProcessManager processManager = new ProcessManager(args[0]);
                 processManager.start();
                 System.out.println("Service Completed");
             }catch(Exception e){
