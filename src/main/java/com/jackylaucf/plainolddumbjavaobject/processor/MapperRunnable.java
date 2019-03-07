@@ -37,8 +37,9 @@ public class MapperRunnable implements Runnable{
             }
             for(BeanConfig beanConfig : beanConfigs){
                 final String outputPath = beanConfig.getAbsolutePath();
-                beanConfig.getType().getBeanWriter().write(outputPath, beanName, columnNames, columnTypes, beanConfig);
+                beanConfig.getType().getBeanWriter().write(outputPath, tableName, beanName, columnNames, columnTypes, beanConfig);
             }
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
             System.err.print("Error encountered: ");

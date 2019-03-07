@@ -16,7 +16,7 @@ public abstract class Writer {
 
     BufferedWriter bufferedWriter;
 
-    public abstract void write(String outputPath, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException;
+    public abstract void write(String outputPath, String tableName, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException;
 
     void initBufferedWriter(String outputPath, String beanName, String prefix, String suffix) throws IOException {
         String beanFullName = prefix + beanName + suffix + ".java";

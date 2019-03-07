@@ -14,7 +14,7 @@ public class PojoWriter extends Writer{
     }
 
     @Override
-    public void write(String outputPath, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
+    public void write(String outputPath, String tableName, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
         initBufferedWriter(outputPath, beanName, beanConfig.getNamePrefix(), beanConfig.getNameSuffix());
         if(bufferedWriter!=null){
             List<String> camelizedFieldNames = camelizeFields(rawColumnNames);
