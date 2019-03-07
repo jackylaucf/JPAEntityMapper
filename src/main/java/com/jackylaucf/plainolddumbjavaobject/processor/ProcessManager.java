@@ -30,7 +30,7 @@ public class ProcessManager {
             ExecutorService executor = Executors.newFixedThreadPool(20);
             for(Map.Entry<String, String> entry : config.getDatabaseToBeanMap().entrySet()){
                 try {
-                    executor.submit(new MapperRunnable(dataSource.getConnection(), entry.getKey(), entry.getValue(), config));
+                    executor.submit(new MapperRunnable(dataSource.getConnection(), entry.getKey(), entry.getValue(), config.getBeanConfig()));
                 } catch (SQLException e) {
                     shutdownAndAwaitTermination(executor);
                     throw e;

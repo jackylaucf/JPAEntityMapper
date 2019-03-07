@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +15,13 @@ public class MapperRunnable implements Runnable{
     private Connection connection;
     private String tableName;
     private String beanName;
-    private ApplicationConfig config;
+    private List<BeanConfig> beanConfigs;
 
-    MapperRunnable(Connection connection, String tableName, String beanName, ApplicationConfig config){
+    MapperRunnable(Connection connection, String tableName, String beanName, List<BeanConfig> beanConfigs){
         this.connection = connection;
         this.tableName = tableName;
         this.beanName = beanName;
-        this.config = config;
+        this.beanConfigs = beanConfigs;
     }
 
     @Override
@@ -36,11 +35,12 @@ public class MapperRunnable implements Runnable{
                 columnNames.add(meta.getString("COLUMN_NAME"));
                 columnTypes.add(meta.getInt("DATA_TYPE"));
             }
-            for(BeanConfig beanConfig : config.getBeanConfig()){
+            for(BeanConfig beanConfig : beanConfigs){
                 final String outputPath = beanConfig.getAbsolutePath();
                 beanConfig.getType().getBeanWriter().write(outputPath, beanName, columnNames, columnTypes, beanConfig);
             }
-        } catch (SQLException | IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             System.err.print("Error encountered: ");
             System.err.println(e.toString());
         }

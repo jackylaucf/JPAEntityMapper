@@ -2,9 +2,6 @@ package com.jackylaucf.plainolddumbjavaobject.processor.writer;
 
 import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,16 +14,22 @@ public class PojoWriter extends Writer{
     }
 
     @Override
-    public void write(String outputPath, String beanName, List<String> columnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
+    public void write(String outputPath, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
         initBufferedWriter(outputPath, beanName, beanConfig.getNamePrefix(), beanConfig.getNameSuffix());
         if(bufferedWriter!=null){
+            List<String> camelizedFieldNames = camelizeFields(rawColumnNames);
             writePackageStatement(beanConfig.getPackageName());
-            writeTypeImportStatements(columnTypes);
-            //to-do
+            if(!isStringOnly){
+                writeTypeImportStatements(columnTypes);
+            }
+            writeClassOpening(beanConfig.getNamePrefix(), beanName, beanConfig.getNameSuffix());
+            for(int i=0; i<camelizedFieldNames.size(); i++){
+                writeFieldDeclaration(isStringOnly, columnTypes.get(i), camelizedFieldNames.get(i));
+            }
+            writeGetterSetters(isStringOnly, columnTypes, camelizedFieldNames);
+            writeClassClosing();
+            bufferedWriter.flush();
             bufferedWriter.close();
         }
-
-
-
     }
 }

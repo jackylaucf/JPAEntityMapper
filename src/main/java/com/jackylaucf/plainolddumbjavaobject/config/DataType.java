@@ -68,4 +68,8 @@ public enum DataType {
     public String getDependency(){
         return this.dependency;
     }
+
+    public String getTypeString(){
+        return this.typeString;
+    }
 }

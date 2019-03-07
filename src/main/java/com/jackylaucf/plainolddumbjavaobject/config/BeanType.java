@@ -7,24 +7,25 @@ import com.jackylaucf.plainolddumbjavaobject.processor.writer.Writer;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum BeanType {
-    ENTITY("entity", new EntityWriter()),
-    POJO("pojo", new PojoWriter(false)),
-    STRING_ONLY_POJO("string-only-pojo", new PojoWriter(true));
+    ENTITY("entity", EntityWriter::new),
+    POJO("pojo", () -> new PojoWriter(false)),
+    STRING_ONLY_POJO("string-only-pojo", () -> new PojoWriter(true));
 
     private final String name;
-    private final Writer writer;
+    private final Supplier<Writer> writerSupplier;
     public static Map<String, BeanType> beanTypeMap;
 
     static{
         beanTypeMap = Arrays.stream(BeanType.values()).collect(Collectors.toMap(BeanType::getName, Function.identity()));
     }
 
-    BeanType(String name, Writer writer){
+    BeanType(String name, Supplier<Writer> writerSupplier){
         this.name = name;
-        this.writer = writer;
+        this.writerSupplier = writerSupplier;
     }
 
     private String getName(){
@@ -32,7 +33,7 @@ public enum BeanType {
     }
 
     public Writer getBeanWriter(){
-        return this.writer;
+        return this.writerSupplier.get();
     }
 
     public static BeanType getTypeByName(String name){
