@@ -1,8 +1,6 @@
 # PlainOldDumbJavaObject
 A simple java application for those who hates building POJOs and mapping the database schema with the JPA Entity class.
 
-<br>
-
 ## How it works
 
 The Java program aims to speed up the pojo and entity creation process with the help of the JDBC API. By providing appropriate properties file, the program will generate the designated java source code accordingly.
@@ -15,7 +13,12 @@ The program currently supports three types (<b>\<TYPE\></b>) of bean production
 | pojo | Plain Old Java Object |
 | string-only-pojo | Plain Old Java Object, all member fields are set as String type |
 
+To run the program, 
 <br>
+
+ + Build a jar with your JDBC database driver.
+ + Prepare a `config.properties` file 
+ + Run `java -jar <YOUR_JAR_FILE> <YOUR_CONFIG_FILE>` in your terminal.
 
 ## Supported properties
 Java `.properties` file is required and should be supplied to the program by users.
@@ -53,8 +56,6 @@ Java `.properties` file is required and should be supplied to the program by use
 | bean.db.map.\<TABLE_NAME\> | One-to-One mapping of the database table name to Java Bean name. <br> The name of the bean product will be \<bean.prefix\>\<BEAN_NAME\>\<bean.suffix\>.java
 | bean.db.id.\<TABLE_NAME\> | One-to-One mapping of the database table name to its corresponding Id field, which will be annotated with @Id in entity class according to JPA specification |
 
-<br>
-
 ## JPA Annotation Support
 | Annotation | Attribute(s) |
 | ---------- | ------------ |
@@ -62,8 +63,6 @@ Java `.properties` file is required and should be supplied to the program by use
 | @Table | name |
 | @Id | nil |
 | @Column | name |
-
-<br>
 
 ## Default Datababase Type to Java Type Mapping
 The design is based on <a href="https://docs.oracle.com/javase/8/docs/api/java/sql/Types.html">java.sql.Types</href></a>
@@ -105,9 +104,6 @@ The design is based on <a href="https://docs.oracle.com/javase/8/docs/api/java/s
 | TINYINT | java.lang.Byte |
 | VARBINARY | byte[] |
 | VARCHAR | java.lang.String |
-
-<br>
-
 
 ## Import the project
 The project is built with Gradle. Contributors can import the project via the Gradle option in your IDE
