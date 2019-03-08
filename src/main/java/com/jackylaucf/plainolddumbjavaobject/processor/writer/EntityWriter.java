@@ -45,7 +45,7 @@ public class EntityWriter extends Writer{
     }
 
     private void writeJpaDependencyImportStatement() throws IOException{
-        bufferedWriter.write("import " + JPA_DEPENDENCY);
+        bufferedWriter.write("import " + JPA_DEPENDENCY + ";");
         writeNewLines(1, 0);
     }
 

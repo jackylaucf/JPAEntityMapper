@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public enum DataType {
     ARRAY(Types.ARRAY, "java.sql.Array", "Array"),
-    BIGINT(Types.BIGINT, null, "Float"),
+    BIGINT(Types.BIGINT, null, "Long"),
     BINARY(Types.BINARY, null, "byte[]"),
     BIT(Types.BIT, null, "Boolean"),
     BLOB(Types.BLOB, "java.sql.Blob", "Blob"),
@@ -22,7 +22,7 @@ public enum DataType {
     FLOAT(Types.FLOAT, null, "Double"),
     INTEGER(Types.INTEGER, null, "Integer"),
     LONGNVARCHAR(Types.LONGNVARCHAR, null, "String"),
-    LONGVARBINARY(Types.LONGVARBINARY, "null", "byte[]"),
+    LONGVARBINARY(Types.LONGVARBINARY, null, "byte[]"),
     LONGVARCHAR(Types.LONGVARCHAR, null, "String"),
     NCHAR(Types.NCHAR, null, "String"),
     NCLOB(Types.NCLOB, "java.sql.NClob", "NClob"),
