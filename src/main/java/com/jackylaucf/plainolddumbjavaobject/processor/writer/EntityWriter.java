@@ -1,5 +1,6 @@
 package com.jackylaucf.plainolddumbjavaobject.processor.writer;
 
+import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
 import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
 
 import java.io.IOException;
@@ -20,7 +21,8 @@ public class EntityWriter extends Writer{
     public void write(String outputPath, String tableName, String beanName, List<String> rawColumnNames, List<Integer> columnTypes, BeanConfig beanConfig) throws IOException {
         initBufferedWriter(outputPath, beanName, beanConfig.getNamePrefix(), beanConfig.getNameSuffix());
         if(bufferedWriter!=null){
-            List<String> camelizedFieldNames = camelizeFields(rawColumnNames);
+            final List<String> camelizedFieldNames = camelizeFields(rawColumnNames);
+            final String id = ApplicationConfig.getConfig().getDatabaseIdMap().get(tableName);
             writePackageStatement(beanConfig.getPackageName());
             writeJpaDependencyImportStatement();
             writeTypeImportStatements(columnTypes);
@@ -28,6 +30,9 @@ public class EntityWriter extends Writer{
             writeEntityAnnotation(JPAEntity.Table, tableName);
             writeClassOpening(beanConfig.getNamePrefix(), beanName, beanConfig.getNameSuffix());
             for(int i=0; i<camelizedFieldNames.size(); i++){
+                if(id!=null && id.equalsIgnoreCase(rawColumnNames.get(i))){
+                    writeEntityAnnotation(JPAEntity.Id, null);
+                }
                 writeEntityAnnotation(JPAEntity.Column, rawColumnNames.get(i));
                 writeFieldDeclaration(false, columnTypes.get(i), camelizedFieldNames.get(i));
                 writeNewLines(1, 1);

@@ -8,7 +8,7 @@ public class BeanConfig {
     private String nameSuffix;
     private String absolutePath;
 
-    public BeanConfig(BeanType type, String packageName, String namePrefix, String nameSuffix, String absolutePath){
+    BeanConfig(BeanType type, String packageName, String namePrefix, String nameSuffix, String absolutePath){
         this.type = type;
         this.packageName = packageName;
         this.namePrefix = namePrefix;

@@ -26,17 +26,14 @@ public class ApplicationConfigParser {
             throw new FileNotFoundException();
         }
         properties.load(new FileInputStream(file));
-        setOutputRootConfig();
         setDatabaseConfig();
         setBeanConfig(getPackagePropertyKeys());
         setDatabaseBeanMapConfig();
+        setDatabaseIdMapConfig();
         config.setLoaded();
     }
 
-    private static void setOutputRootConfig(){
-        config.setOutputRoot(properties.getProperty(OUTPUT_ROOT, System.getProperty("user.dir")));
-    }
-
+    /*Database connection configuration*/
     private static void setDatabaseConfig(){
         if(properties.getProperty(DB_CONNECTION_URL)==null || properties.getProperty(DB_CONNECTION_USER)==null){
             throw new NoSuchElementException("Missing Database Connection Configuration");
@@ -47,6 +44,7 @@ public class ApplicationConfigParser {
         }
     }
 
+    /*Java bean properties configuration*/
     private static void setBeanConfig(Set<String> packagePropertyKeys){
         final List<BeanConfig> beanConfigs = new ArrayList<>();
         for(String key : packagePropertyKeys){
@@ -60,6 +58,8 @@ public class ApplicationConfigParser {
         config.setBeanConfig(beanConfigs);
     }
 
+    /*Database table properties configuration
+     *Possible to refactor if the number of supported config properties increase in the future*/
     private static void setDatabaseBeanMapConfig(){
         final Map<String, String> databaseBeanMap = new HashMap<>();
         final Set<String> propertiesNameSet = properties.stringPropertyNames();
@@ -70,6 +70,17 @@ public class ApplicationConfigParser {
         config.setDatabaseToBeanMap(databaseBeanMap);
     }
 
+    private static void setDatabaseIdMapConfig(){
+        final Map<String, String> databaseIdMap = new HashMap<>();
+        final Set<String> propertiesNameSet = properties.stringPropertyNames();
+        propertiesNameSet.removeIf(name -> !name.startsWith(BEAN_DB_ID));
+        for(String beanDbIdPropertyKey : propertiesNameSet){
+            databaseIdMap.put(beanDbIdPropertyKey.replace(BEAN_DB_ID, ""), properties.getProperty(beanDbIdPropertyKey));
+        }
+        config.setDatabaseIdMap(databaseIdMap);
+    }
+
+    /*Helper function*/
     private static Set<String> getPackagePropertyKeys(){
         final Set<String> propertiesNameSet = properties.stringPropertyNames();
         propertiesNameSet.removeIf(name -> !name.startsWith(BEAN_PACKAGE));

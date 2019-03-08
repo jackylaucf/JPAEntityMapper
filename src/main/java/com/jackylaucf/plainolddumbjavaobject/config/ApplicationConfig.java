@@ -7,21 +7,21 @@ public final class ApplicationConfig {
     static final String DB_CONNECTION_URL = "db.connection.url";
     static final String DB_CONNECTION_USER = "db.connection.user";
     static final String DB_CONNECTION_PASSWORD = "db.connection.password";
-    static final String BEAN_ID = "bean.id.";
     static final String BEAN_PREFIX = "bean.prefix.";
     static final String BEAN_SUFFIX = "bean.suffix.";
     static final String BEAN_PACKAGE = "bean.package.";
     static final String BEAN_DB_MAP = "bean.db.map.";
+    static final String BEAN_DB_ID = "bean.db.id.";
     static final String OUTPUT_ROOT = "output.root";
 
     private static boolean isLoaded;
 
-    private String outputRoot;
     private String dbConnectionUrl;
     private String dbConnectionUser;
     private String dbConnectionPassword;
     private List<BeanConfig> beanConfig;
     private Map<String, String> databaseToBeanMap;
+    private Map<String, String> databaseIdMap;
 
     private static ApplicationConfig config;
 
@@ -37,18 +37,6 @@ public final class ApplicationConfig {
 
     public static ApplicationConfig getConfig(){
         return config;
-    }
-
-    public String getOutputRoot() {
-        if(isLoaded){
-            return outputRoot;
-        }else{
-            throw new IllegalStateException("Configuration should be loaded before read");
-        }
-    }
-
-    void setOutputRoot(String outputRoot) {
-        this.outputRoot = outputRoot;
     }
 
     public String getDbConnectionUrl() {
@@ -109,6 +97,18 @@ public final class ApplicationConfig {
 
     void setDatabaseToBeanMap(Map<String, String> databaseToBeanMap) {
         this.databaseToBeanMap = databaseToBeanMap;
+    }
+
+    public Map<String, String> getDatabaseIdMap() {
+        if(isLoaded){
+            return databaseIdMap;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
+    }
+
+    void setDatabaseIdMap(Map<String, String> databaseIdMap) {
+        this.databaseIdMap = databaseIdMap;
     }
 
     void setLoaded(){
