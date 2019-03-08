@@ -61,6 +61,7 @@ public abstract class Writer {
         if(stringOnly){
             bufferedWriter.write("private String ");
             bufferedWriter.write(fieldName);
+            bufferedWriter.write(";");
         }else{
             bufferedWriter.write("private ");
             bufferedWriter.write(DataType.getDataType(columnType).getTypeString());
