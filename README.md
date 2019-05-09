@@ -1,5 +1,5 @@
 # PlainOldDumbJavaObject
-A simple java application for those who hates building POJOs and mapping the database schema with the JPA Entity class.
+A simple java application for automating Pojo and JPA Entity code generation.
 
 ## How it works
 
