@@ -54,7 +54,7 @@ Java `.properties` file is required and should be supplied to the program by use
 | Properties | Description |
 | ---------- | ----------- |
 | bean.db.map.\<TABLE_NAME\> | One-to-One mapping of the database table name to Java Bean name. <br> The name of the bean product will be \<bean.prefix\>\<BEAN_NAME\>\<bean.suffix\>.java
-| bean.db.id.\<TABLE_NAME\> | One-to-One mapping of the database table name to its corresponding Id field, which will be annotated with @Id in entity class according to JPA specification |
+| bean.db.id.\<TABLE_NAME\> | One-to-One mapping of the database table name to its corresponding Id field, which will be annotated with @Id in entity class according to JPA specification. Note that the value of the key-value pair should be the COLUMN_NAME in database, not the field name in entity class. |
 
 ## JPA Annotation Support
 | Annotation | Attribute(s) |
