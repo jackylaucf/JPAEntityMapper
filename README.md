@@ -29,6 +29,7 @@ Java `.properties` file is required and should be supplied to the program by use
 | db.connection.url | A database url of the form jdbc:subprotocol:subname | Y |
 | db.connection.user | The database user on whose behalf the connection is being made | Y | 
 | db.connection.password | The user's password | N |
+| db.connection.schema | Target schema in database | N |
 
 <b>Remarks:</b> To prevent `No suitable driver found` error, please pack the database driver jar with the compiled source code if you are going to create a portable jar.
 
