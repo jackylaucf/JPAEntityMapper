@@ -7,6 +7,7 @@ public final class ApplicationConfig {
     static final String DB_CONNECTION_URL = "db.connection.url";
     static final String DB_CONNECTION_USER = "db.connection.user";
     static final String DB_CONNECTION_PASSWORD = "db.connection.password";
+    static final String DB_CONNECTION_SCHEMA = "db.connection.schema"; //support single schema only
     static final String BEAN_PREFIX = "bean.prefix.";
     static final String BEAN_SUFFIX = "bean.suffix.";
     static final String BEAN_PACKAGE = "bean.package.";
@@ -19,6 +20,7 @@ public final class ApplicationConfig {
     private String dbConnectionUrl;
     private String dbConnectionUser;
     private String dbConnectionPassword;
+    private String dbConnectionSchema;
     private List<BeanConfig> beanConfig;
     private Map<String, String> databaseToBeanMap;
     private Map<String, String> databaseIdMap;
@@ -73,6 +75,18 @@ public final class ApplicationConfig {
 
     void setDbConnectionPassword(String dbConnectionPassword) {
         this.dbConnectionPassword = dbConnectionPassword;
+    }
+
+    public String getDbConnectionSchema() {
+        if(isLoaded){
+            return dbConnectionSchema;
+        }else{
+            throw new IllegalStateException("Configuration should be loaded before read");
+        }
+    }
+
+    void setDbConnectionSchema(String dbConnectionSchema) {
+        this.dbConnectionSchema = dbConnectionSchema;
     }
 
     public List<BeanConfig> getBeanConfig() {

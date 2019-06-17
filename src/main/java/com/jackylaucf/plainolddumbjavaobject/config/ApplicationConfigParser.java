@@ -41,6 +41,7 @@ public class ApplicationConfigParser {
             config.setDbConnectionUrl(properties.getProperty(DB_CONNECTION_URL));
             config.setDbConnectionUser(properties.getProperty(DB_CONNECTION_USER));
             config.setDbConnectionPassword(properties.getProperty(DB_CONNECTION_PASSWORD));
+            config.setDbConnectionSchema(properties.getProperty(DB_CONNECTION_SCHEMA));
         }
     }
 
