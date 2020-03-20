@@ -1,4 +1,4 @@
-# JPAEntityBuilder
+# JPAEntityMapper
 A simple java application for automating Pojo and JPA Entity code generation.
 
 ## How it works
