@@ -1,4 +1,4 @@
-package com.jackylaucf.plainolddumbjavaobject.config;
+package com.jackylaucf.jpaentitymapper.config;
 
 import java.sql.Types;
 import java.util.Arrays;

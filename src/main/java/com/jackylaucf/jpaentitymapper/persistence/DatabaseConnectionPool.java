@@ -1,4 +1,4 @@
-package com.jackylaucf.plainolddumbjavaobject.persistence;
+package com.jackylaucf.jpaentitymapper.persistence;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 

@@ -1,4 +1,4 @@
-package com.jackylaucf.plainolddumbjavaobject.config;
+package com.jackylaucf.jpaentitymapper.config;
 
 public class BeanConfig {
 

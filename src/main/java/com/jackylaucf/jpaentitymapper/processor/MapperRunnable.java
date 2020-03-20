@@ -1,13 +1,10 @@
-package com.jackylaucf.plainolddumbjavaobject.processor;
+package com.jackylaucf.jpaentitymapper.processor;
 
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
-import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
-import org.omg.CORBA.DynAnyPackage.Invalid;
+import com.jackylaucf.jpaentitymapper.config.ApplicationConfig;
+import com.jackylaucf.jpaentitymapper.config.BeanConfig;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 

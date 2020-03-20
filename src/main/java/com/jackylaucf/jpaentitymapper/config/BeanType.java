@@ -1,8 +1,8 @@
-package com.jackylaucf.plainolddumbjavaobject.config;
+package com.jackylaucf.jpaentitymapper.config;
 
-import com.jackylaucf.plainolddumbjavaobject.processor.writer.EntityWriter;
-import com.jackylaucf.plainolddumbjavaobject.processor.writer.PojoWriter;
-import com.jackylaucf.plainolddumbjavaobject.processor.writer.Writer;
+import com.jackylaucf.jpaentitymapper.processor.writer.EntityWriter;
+import com.jackylaucf.jpaentitymapper.processor.writer.PojoWriter;
+import com.jackylaucf.jpaentitymapper.processor.writer.Writer;
 
 import java.util.Arrays;
 import java.util.Map;

@@ -1,9 +1,9 @@
-package com.jackylaucf.plainolddumbjavaobject.processor;
+package com.jackylaucf.jpaentitymapper.processor;
 
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
-import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
-import com.jackylaucf.plainolddumbjavaobject.persistence.DatabaseConnectionPool;
+import com.jackylaucf.jpaentitymapper.config.ApplicationConfig;
+import com.jackylaucf.jpaentitymapper.config.ApplicationConfigParser;
+import com.jackylaucf.jpaentitymapper.config.BeanConfig;
+import com.jackylaucf.jpaentitymapper.persistence.DatabaseConnectionPool;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.File;

@@ -1,7 +1,6 @@
-package com.jackylaucf.plainolddumbjavaobject;
+package com.jackylaucf.jpaentitymapper;
 
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfigParser;
-import com.jackylaucf.plainolddumbjavaobject.processor.ProcessManager;
+import com.jackylaucf.jpaentitymapper.processor.ProcessManager;
 
 public class Application {
     public static void main(String[] args){

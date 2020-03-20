@@ -1,8 +1,8 @@
-package com.jackylaucf.plainolddumbjavaobject.processor.writer;
+package com.jackylaucf.jpaentitymapper.processor.writer;
 
 
-import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
-import com.jackylaucf.plainolddumbjavaobject.config.DataType;
+import com.jackylaucf.jpaentitymapper.config.BeanConfig;
+import com.jackylaucf.jpaentitymapper.config.DataType;
 
 import java.io.BufferedWriter;
 import java.io.File;

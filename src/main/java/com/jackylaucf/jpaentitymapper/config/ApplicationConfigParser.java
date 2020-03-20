@@ -1,4 +1,4 @@
-package com.jackylaucf.plainolddumbjavaobject.config;
+package com.jackylaucf.jpaentitymapper.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig.*;
+import static com.jackylaucf.jpaentitymapper.config.ApplicationConfig.*;
 
 public class ApplicationConfigParser {
 

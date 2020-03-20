@@ -1,7 +1,7 @@
-package com.jackylaucf.plainolddumbjavaobject.processor.writer;
+package com.jackylaucf.jpaentitymapper.processor.writer;
 
-import com.jackylaucf.plainolddumbjavaobject.config.ApplicationConfig;
-import com.jackylaucf.plainolddumbjavaobject.config.BeanConfig;
+import com.jackylaucf.jpaentitymapper.config.ApplicationConfig;
+import com.jackylaucf.jpaentitymapper.config.BeanConfig;
 
 import java.io.IOException;
 import java.util.List;
